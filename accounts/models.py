@@ -36,3 +36,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    @property
+    def avatar_url(self):
+        try:
+            url = self.avatar.url
+        except:
+            url = '' # set default image
+        return url
