@@ -195,7 +195,7 @@ JAZZMIN_SETTINGS = {
     # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "BIZNEWS",
 
-    # Logo to use for your site, must be present in static files, used for brand on top left
+    # Logo to use for your site, must be present in static files, used for brand on top left ok
     "site_logo": "media/logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
