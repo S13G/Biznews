@@ -8,6 +8,14 @@ from django.utils.translation import gettext_lazy as _
 from .managers import CustomUserManager
 
 
+class Timezone(models.Model):
+    name = models.CharField(max_length=255, null=True)
+    timestamp = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.name)
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     username = models.CharField(
@@ -20,6 +28,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     avatar = models.ImageField(upload_to="news/avatars/", null=True)
+    timezone = models.ForeignKey(Timezone, on_delete=models.SET_NULL, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username", "first_name", "last_name"]
@@ -42,5 +51,5 @@ class User(AbstractBaseUser, PermissionsMixin):
         try:
             url = self.avatar.url
         except:
-            url = '' # set default image
+            url = ''  # set default image
         return url

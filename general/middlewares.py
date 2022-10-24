@@ -1,6 +1,3 @@
-import os
-
-from django.contrib.gis.geoip2 import GeoIP2
 from django.utils import timezone
 
 
@@ -9,12 +6,13 @@ class TimezoneMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        g = GeoIP2
-        print(g('127.0.0.1'))
-        # print(request.session.get('localtimezone'))
-        tzname = os.system('curl http://ip-api.com/line?fields=timezone')
+        user = request.user
+        tzname = request.COOKIES.get('localtimezone')
+
+        if user.is_authenticated:
+            tzname = user.timezone.name
         if tzname:
-            timezone.activate("Africa/Lagos")
+            timezone.activate(tzname)
         else:
             timezone.deactivate()
         print(f'tzname {tzname}')

@@ -79,7 +79,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'general.middlewares.TimezoneMiddleware',
+    'general.middlewares.TimezoneMiddleware',
 ]
 
 
@@ -143,6 +143,8 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 
@@ -278,6 +280,7 @@ JAZZMIN_SETTINGS = {
     "icons": {
         "accounts.group": "fas fa-users",
         "accounts.user": "fas fa-user-cog",
+        "accounts.timezone": "fas fa-clock",
         "news.article": "fas fa-newspaper",
         "news.category": "fas fa-list-alt",
         "news.articleviews": "fas fa-eye",

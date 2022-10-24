@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Article, Comment, Reply
+from .models import Category, Article, Comment, Reply, ArticleView
 
 
 # Register your models here.
@@ -22,8 +22,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['admin', 'title', 'category', 'trending', 'timestamp']
-    list_filter = ['admin', 'title', 'category', 'trending', 'timestamp']
+    list_display = ['admin', 'title', 'category', 'status', 'timestamp']
+    list_filter = ['admin', 'title', 'category', 'status', 'timestamp']
     readonly_fields = ['admin']
 
     fieldsets = (
@@ -34,7 +34,7 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
         ('Checks', {
             'fields': (
-                'trending', 'timestamp'
+                'status', 'timestamp'
             ),
         }),
     )
@@ -70,3 +70,6 @@ class ReplyAdmin(admin.ModelAdmin):
             ),
         }),
     )
+
+
+admin.site.register(ArticleView)

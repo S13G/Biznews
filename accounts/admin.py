@@ -6,7 +6,7 @@ from django.contrib.auth.models import Group as DjangoGroup
 from django.utils.translation import gettext_lazy as _
 
 from .forms import CustomUserChangeForm, CustomUserCreationForm
-from .models import User
+from .models import User, Timezone
 
 
 class Group(DjangoGroup):
@@ -51,7 +51,7 @@ class UserAdmin(BaseUserAdmin):
         ),
         (
             _("Personal Information"),
-            {"fields": ("username", "first_name", "last_name")},
+            {"fields": ("username", "first_name", "last_name", "timezone")},
         ),
         (
             _("Permissions and Groups"),
@@ -80,6 +80,18 @@ class UserAdmin(BaseUserAdmin):
     )
 
     search_fields = ["email", "username", "first_name", "last_name"]
+
+
+@admin.register(Timezone)
+class TimezoneAdmin(admin.ModelAdmin):
+    list_display = ["name"]
+    list_filter = ["name"]
+    fieldsets = (
+        _("Details"),
+        {
+            "fields": ("name", "timestamp")
+        },
+    ),
 
 
 admin.site.register(User, UserAdmin)
