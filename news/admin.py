@@ -23,7 +23,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ['admin', 'title', 'category', 'status', 'timestamp']
-    list_filter = ['admin', 'title', 'category', 'status', 'timestamp']
+    list_filter = ['admin', 'title', 'category', 'featured', 'status', 'timestamp']
     readonly_fields = ['admin']
 
     fieldsets = (
@@ -34,7 +34,7 @@ class ArticleAdmin(admin.ModelAdmin):
         }),
         ('Checks', {
             'fields': (
-                'status', 'timestamp'
+                'featured', 'status', 'timestamp'
             ),
         }),
     )

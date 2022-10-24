@@ -44,7 +44,7 @@ class Article(models.Model):
         return str(self.title)
 
     @property
-    def image_url(self):
+    def imageURL(self):
         try:
             url = self.image.url
         except:
