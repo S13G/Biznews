@@ -3,6 +3,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 # Create your models here.
 
@@ -34,7 +35,7 @@ class Article(models.Model):
     featured = models.BooleanField(default=False)
     status = models.CharField(choices=NEWS_STATUS, max_length=255, null=True, blank=True)
     image = models.ImageField(null=True, upload_to='news/articles')
-    views = models.IntegerField(null=True)
+    views = models.IntegerField(default="0", null=True)
     timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
@@ -42,6 +43,9 @@ class Article(models.Model):
 
     def __str__(self):
         return str(self.title)
+
+    def get_absolute_url(self):
+        return reverse('article-detail', kwargs={'article_slug': self.slug})
 
     @property
     def imageURL(self):
