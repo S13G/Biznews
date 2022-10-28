@@ -11,6 +11,7 @@ from news.models import Article, Category, Comment
 # Create your views here.
 
 
+# function to call all objects from the database to be passed to the templates
 class IndexView(View):
     def get(self, request, *args, **kwargs):
         articles = Article.objects.all().select_related('category')
@@ -43,6 +44,7 @@ class IndexView(View):
             return redirect('/')
 
 
+# for displaying the details of each article
 class ArticleDetailView(View):
     def get(self, request, *args, **kwargs):
         articles = Article.objects.all().select_related('category')
