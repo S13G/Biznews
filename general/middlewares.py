@@ -15,6 +15,5 @@ class TimezoneMiddleware:
             timezone.activate(tzname)
         else:
             timezone.deactivate()
-        print(f'tzname {tzname}')
         response = self.get_response(request)
         return response

@@ -51,7 +51,7 @@ class UserAdmin(BaseUserAdmin):
         ),
         (
             _("Personal Information"),
-            {"fields": ("username", "first_name", "last_name", "timezone")},
+            {"fields": ("username", "first_name", "last_name", "timezone", "avatar")},
         ),
         (
             _("Permissions and Groups"),

@@ -3,7 +3,8 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
-from django.urls import reverse
+
+from news.utils import Util
 
 # Create your models here.
 
@@ -45,12 +46,12 @@ class Article(models.Model):
         return str(self.title)
 
     def get_absolute_url(self):
-        return reverse('article-detail', kwargs={'article_slug': self.slug})
+        return f'articles/{self.slug}/'
 
     @property
     def imageURL(self):
         try:
-            url = self.image.url # set this image
+            url = self.image.url  # set this image
         except:
             url = ''  # set default image
         return url
@@ -64,6 +65,10 @@ class ArticleView(models.Model):
     def __str__(self):
         return str(self.ip)
 
+    @property
+    def nice_timestamp(self):
+        return Util.sweet_timestamp
+
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')
@@ -76,6 +81,12 @@ class Comment(models.Model):
     def __str__(self):
         return str(self.name)
 
+    @property
+    def nice_timestamp(self):
+        print(self.timestamp)
+        print(timezone.now())
+        return Util.sweet_timestamp(self.timestamp, timezone.now())
+
 
 class Reply(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='replies')
@@ -86,6 +97,12 @@ class Reply(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    @property
+    def nice_timestamp(self):
+        print(self.timestamp)
+        print(timezone.now())
+        return Util.sweet_timestamp(self.timestamp, timezone.now())
 
     class Meta:
         verbose_name_plural = 'Replies'
